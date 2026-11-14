@@ -87,3 +87,13 @@ h2 {
     color: #E2DED2;
     font-size: 18px;
 }
+
+.subtitulo {
+    font-family: "Palatino Linotype", "Book Antiqua", serif;
+    font-size: 19px;
+    font-style: italic;
+    letter-spacing: 3px;
+    color: #D8D0BF;
+    text-align: center;
+    margin-top: -15px;
+}
