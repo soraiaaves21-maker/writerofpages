@@ -16,31 +16,58 @@ supabase
     .then(({ data, error }) => {
         console.log('Teste da tabela perfis:', error ? error.message : 'Consulta concluída');
     });
-const formulario = document.getElementById('cadastro-form');
+const formularioCadastro = document.getElementById('cadastro-form');
 
-formulario.addEventListener('submit', async (evento) => {
-    evento.preventDefault();
+if (formularioCadastro) {
+    formularioCadastro.addEventListener('submit', async (evento) => {
+        evento.preventDefault();
 
-    const nome = document.getElementById('nome').value;
-    const email = document.getElementById('email').value;
-    const senha = document.getElementById('senha').value;
-    const mensagem = document.getElementById('mensagem');
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+        const mensagem = document.getElementById('mensagem');
 
-    mensagem.textContent = 'Criando sua conta...';
+        mensagem.textContent = 'Criando sua conta...';
 
-    const { error } = await supabase.auth.signUp({
-        email: email,
-        password: senha,
-        options: {
-            data: {
-                nome: nome
+        const { error } = await supabase.auth.signUp({
+            email: email,
+            password: senha,
+            options: {
+                data: { nome: nome },
+                emailRedirectTo: 'https://soraiaaves21-maker.github.io/writerofpages/'
+}
             }
+        });
+
+        if (error) {
+            mensagem.textContent = 'Erro: ' + error.message;
+        } else {
+            mensagem.textContent = 'Cadastro iniciado! Confira seu e-mail para confirmar a conta.';
         }
     });
+}
 
-    if (error) {
-        mensagem.textContent = 'Erro: ' + error.message;
-    } else {
-        mensagem.textContent = 'Cadastro iniciado! Confira seu e-mail para confirmar a conta.';
-    }
-});
+const formularioLogin = document.getElementById('login-form');
+
+if (formularioLogin) {
+    formularioLogin.addEventListener('submit', async (evento) => {
+        evento.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
+        const mensagem = document.getElementById('mensagem');
+
+        mensagem.textContent = 'Verificando seu acesso...';
+
+        const { error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: senha
+        });
+
+        if (error) {
+            mensagem.textContent = 'Não foi possível entrar: ' + error.message;
+        } else {
+            window.location.href = 'inicio.html';
+        }
+    });
+}
