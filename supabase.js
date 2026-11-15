@@ -28,16 +28,14 @@ if (formularioCadastro) {
         const mensagem = document.getElementById('mensagem');
 
         mensagem.textContent = 'Criando sua conta...';
-
         const { error } = await supabase.auth.signUp({
-            email: email,
-            password: senha,
-            options: {
-                data: { nome: nome },
-                emailRedirectTo: 'https://soraiaaves21-maker.github.io/writerofpages/'
-}
-            }
-        });
+    email: email,
+    password: senha,
+    options: {
+        data: { nome: nome },
+        emailRedirectTo: 'https://soraiaaves21-maker.github.io/writerofpages/'
+    }
+});
 
         if (error) {
             mensagem.textContent = 'Erro: ' + error.message;
